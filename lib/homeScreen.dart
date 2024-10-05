@@ -1,4 +1,9 @@
+
 import 'package:flutter/material.dart';
+import 'package:islami/tabs/hadeth/hadeth_tab.dart';
+import 'package:islami/tabs/quran/quran_tab.dart';
+import 'package:islami/tabs/radio/radio_tab.dart';
+import 'package:islami/tabs/sebha/sebha_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
@@ -10,52 +15,41 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
+  List<Widget> tabs = [RadioTab(), SebhaTab(), HadethTab(), QuranTab()];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: tabs[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xffB7935F),
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.black,
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        onTap: (indx) {
+          _selectedIndex = indx;
+          setState(() {});
+        },
         items: [
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/images/radio.png'),
-              color: _selectedIndex == 0 ? Colors.black : Colors.white,
-            ),
-            label: 'Radio',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/images/sebha.png'),
-              color: _selectedIndex == 1 ? Colors.black : Colors.white,
-            ),
-            label: 'Sebha',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/images/quran_quran_svgrepo_com.png'),
-              color: _selectedIndex == 2 ? Colors.black : Colors.white,
-            ),
-            label: 'Quran',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/images/quran.png'),
-              color: _selectedIndex == 3 ? Colors.black : Colors.white,
-            ),
-            label: 'Quran 2',
-          ),
+          NavigationItem('Radio'),
+          NavigationItem('Sebha'),
+          NavigationItem('Hadeth'),
+          NavigationItem('Quran'),
         ],
       ),
     );
+  }
+
+  BottomNavigationBarItem NavigationItem(String iconName) {
+    
+    return BottomNavigationBarItem(
+          icon: ImageIcon(
+            AssetImage('assets/images/$iconName.png'),
+          ),
+          label: iconName,
+        );
   }
 }
