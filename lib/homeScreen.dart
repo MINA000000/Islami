@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:islami/tabs/hadeth/hadeth_tab.dart';
 import 'package:islami/tabs/quran/quran_tab.dart';
@@ -22,34 +21,46 @@ class _HomeScreenState extends State<HomeScreen> {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: tabs[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: (indx) {
-          _selectedIndex = indx;
-          setState(() {});
-        },
-        items: [
-          NavigationItem('Radio'),
-          NavigationItem('Sebha'),
-          NavigationItem('Hadeth'),
-          NavigationItem('Quran'),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/images/bg3.png'), fit: BoxFit.fill),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('إسلامي'),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        backgroundColor: Colors.transparent,
+        body: tabs[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          onTap: (indx) {
+            _selectedIndex = indx;
+            setState(() {});
+          },
+          items: [
+            NavigationItem('Radio'),
+            NavigationItem('Sebha'),
+            NavigationItem('Hadeth'),
+            NavigationItem('Quran'),
+          ],
+        ),
       ),
     );
   }
 
   BottomNavigationBarItem NavigationItem(String iconName) {
-    
     return BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage('assets/images/$iconName.png'),
-          ),
-          label: iconName,
-        );
+      icon: ImageIcon(
+        AssetImage('assets/images/$iconName.png'),
+      ),
+      label: iconName,
+    );
   }
 }

@@ -6,6 +6,7 @@ class AppTheme {
   static const Color white = Color(0xffF8F8F8);
   static const Color black = Color(0xff242424);
   static const Color gold = Color(0xffFACC1D);
+
   static ThemeData lightTheme = ThemeData(
     primaryColor: PrimaryLight,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -13,7 +14,23 @@ class AppTheme {
       selectedItemColor: black,
       unselectedItemColor: white,
     ),
+    appBarTheme: AppBarTheme(
+      centerTitle: true,
+      iconTheme: IconThemeData(color: black),
+      titleTextStyle: TextStyle(
+        color: black,
+        fontSize: 30,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    textTheme: TextTheme(
+        headlineSmall: TextStyle(
+      color: black,
+      fontSize: 25,
+      fontWeight: FontWeight.w400,
+    )),
   );
+
   static ThemeData dartTheme = ThemeData(
     primaryColor: PrimaryDark,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
