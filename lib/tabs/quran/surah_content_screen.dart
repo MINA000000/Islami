@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:islami/app_theme.dart';
 import 'package:islami/tabs/quran/quran_tab.dart';
 
-class SurahContentScreen extends StatelessWidget {
+class SurahContentScreen extends StatefulWidget {
   static const routeName = '/surah-content-screen';
+
+  @override
+  State<SurahContentScreen> createState() => _SurahContentScreenState();
+}
+
+class _SurahContentScreenState extends State<SurahContentScreen> {
+  List<String> ayat = [];
+
   late SurahDetailed args;
+
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments as SurahDetailed;
+    if(ayat.isEmpty)
+    {
+      loadSurah();
+    }
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -53,10 +67,30 @@ class SurahContentScreen extends StatelessWidget {
                 thickness: 1,
                 color: AppTheme.PrimaryLight,
               ),
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) => Text(
+                    ayat[index],
+                    style: Theme.of(context).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                  itemCount: ayat.length,
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void loadSurah ()async
+  {
+    String surahContent = await rootBundle.loadString('assets/surah/${args.index+1}.txt');
+    ayat = surahContent.split('\r\n');
+    // print(ayat);
+    setState(() {
+      
+    });
   }
 }

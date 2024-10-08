@@ -45,10 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
             setState(() {});
           },
           items: [
-            NavigationItem('Radio'),
-            NavigationItem('Sebha'),
-            NavigationItem('Hadeth'),
-            NavigationItem('Quran'),
+            NavigationItem('radio2'),
+            NavigationItem('sebha2'),
+            NavigationItem('hadeth2'),
+            NavigationItem('quran2'),
           ],
         ),
       ),

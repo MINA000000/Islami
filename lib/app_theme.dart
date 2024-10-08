@@ -24,11 +24,17 @@ class AppTheme {
       ),
     ),
     textTheme: TextTheme(
-        headlineSmall: TextStyle(
-      color: black,
-      fontSize: 25,
-      fontWeight: FontWeight.w400,
-    )),
+      headlineSmall: TextStyle(
+        color: black,
+        fontSize: 25,
+        fontWeight: FontWeight.w400,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        color: black,
+        fontWeight: FontWeight.w400
+      )
+    ),
   );
 
   static ThemeData dartTheme = ThemeData(
