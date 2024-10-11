@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami/app_theme.dart';
 import 'package:islami/tabs/quran/quran_tab.dart';
+import 'package:islami/widgets/load_indicator.dart';
 
 class SurahContentScreen extends StatefulWidget {
   static const routeName = '/surah-content-screen';
@@ -18,8 +19,7 @@ class _SurahContentScreenState extends State<SurahContentScreen> {
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments as SurahDetailed;
-    if(ayat.isEmpty)
-    {
+    if (ayat.isEmpty) {
       loadSurah();
     }
     return Container(
@@ -68,14 +68,16 @@ class _SurahContentScreenState extends State<SurahContentScreen> {
                 color: AppTheme.PrimaryLight,
               ),
               Expanded(
-                child: ListView.builder(
-                  itemBuilder: (context, index) => Text(
-                    ayat[index],
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  itemCount: ayat.length,
-                ),
+                child: (ayat.isEmpty)
+                    ? LoadIndicator()
+                    : ListView.builder(
+                        itemBuilder: (context, index) => Text(
+                          ayat[index],
+                          style: Theme.of(context).textTheme.titleLarge,
+                          textAlign: TextAlign.center,
+                        ),
+                        itemCount: ayat.length,
+                      ),
               ),
             ],
           ),
@@ -84,13 +86,12 @@ class _SurahContentScreenState extends State<SurahContentScreen> {
     );
   }
 
-  void loadSurah ()async
-  {
-    String surahContent = await rootBundle.loadString('assets/surah/${args.index+1}.txt');
+  void loadSurah() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    String surahContent =
+        await rootBundle.loadString('assets/surah/${args.index + 1}.txt');
     ayat = surahContent.split('\r\n');
     // print(ayat);
-    setState(() {
-      
-    });
+    setState(() {});
   }
 }
