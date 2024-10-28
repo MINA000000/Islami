@@ -13,70 +13,80 @@ class _SettingTabState extends State<SettingTab> {
   @override
   Widget build(BuildContext context) {
     SettingProvider settingProvider = Provider.of<SettingProvider>(context);
-    List<Language> languages = [Language(languageCode: 'ar', languageName: 'Arabic'),Language(languageCode: 'en', languageName: 'English')];
-    Language selectedLanguage = languages[0];
+
+    List<Language> languages = [
+      Language(languageCode: 'ar', languageName: 'Arabic'),
+      Language(languageCode: 'en', languageName: 'English')
+    ];
+
     return SafeArea(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Dark Theme',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  "Dartk Theme",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
                 Switch(
                   value: settingProvider.appTheme == ThemeMode.dark,
                   onChanged: (value) {
-                    if (value == false) {
-                      settingProvider.changeTheme(ThemeMode.light);
-                    } else {
+                    if (value == true)
                       settingProvider.changeTheme(ThemeMode.dark);
-                    }
-                    setState(
-                      () {},
-                    );
+                    else
+                      settingProvider.changeTheme(ThemeMode.light);
                   },
+                  activeColor: Colors.pink,
                 ),
               ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Language',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  "Language",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
-                DropdownButton<Language>(
-                  
-                  hint: Text('Select an item'),
-                  value: selectedLanguage,
-                  onChanged: (Language? newValue) {
-                    selectedLanguage = languages.firstWhere((element) => element.languageCode==newValue); 
-                    // settingProvider.changeLanguage(newValue!.languageCode);
-                  },
-                  items: languages.map<DropdownMenuItem<Language>>((Language value) {
-                    return DropdownMenuItem<Language>(
-                      value: value,
-                      child: Text(value.languageName),
-                    );
-                  }).toList(),
+                DropdownButtonHideUnderline(
+                  child: DropdownButton<Language>(
+                    value: languages.firstWhere((element) => element.languageCode==settingProvider.language),
+                    items: languages
+                        .map(
+                          (e) => DropdownMenuItem<Language>(
+                            value: e,
+                            child: Text(e.languageName),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (language) {
+                      if(language!=null)
+                      {
+                        settingProvider.changeLanguage(language.languageCode);
+                      }
+                    },
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-class Language{
-  String languageCode ;
-  String languageName ;
-  Language({required this.languageCode,required this.languageName});
+
+class Language {
+  String languageCode;
+  String languageName;
+  Language({required this.languageCode, required this.languageName});
 }

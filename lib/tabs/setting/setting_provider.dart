@@ -1,21 +1,21 @@
+
+
 import 'package:flutter/material.dart';
 
 class SettingProvider with ChangeNotifier {
   ThemeMode appTheme = ThemeMode.light;
-  String currentLanguage = 'en';
-  String lightImage = "bg3.png", darkImage = "bg_dark.png";
+  String language = 'en';
   String backGroundImage = "bg3.png";
-  void changeTheme(ThemeMode newMode) {
-    appTheme = newMode;
-    if (newMode == ThemeMode.dark)
-      backGroundImage = darkImage;
-    else
-      backGroundImage = lightImage;
+  void changeTheme(ThemeMode wantedTheme)
+  {
+    if(wantedTheme==ThemeMode.light) backGroundImage = "bg3.png";
+    else backGroundImage = "bg_dark.png";
+    appTheme = wantedTheme;
     notifyListeners();
   }
-  // void changeLanguage(String language)
-  // {
-  //   currentLanguage = language;
-  //   notifyListeners();
-  // }
+  void changeLanguage(String selectedLanguage)
+  {
+    language = selectedLanguage;
+    notifyListeners();
+  }
 }

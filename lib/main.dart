@@ -31,7 +31,7 @@ class Islami extends StatelessWidget {
       themeMode: settingProvider.appTheme,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: Locale(settingProvider.currentLanguage),
+      locale: Locale(settingProvider.language),
     );
   }
 }
